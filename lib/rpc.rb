@@ -22,7 +22,9 @@ class RPC
       fail unless request.success?
 
       user[request.to_h].to_h
-    rescue
+    rescue => e
+      p e
+      puts e.backtrace
       response.status = 400
     end
   }

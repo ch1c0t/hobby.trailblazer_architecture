@@ -7,11 +7,7 @@ module Clients
     step :output
 
     def output (ctx, **)
-      client = Client.create ctx[:input]
-      ctx[:output] = {
-        id: client.id,
-        name: client.name,
-      }
+      ctx[:output] = RedisCall['Client.create', ctx[:input]]
     end
   end
 end

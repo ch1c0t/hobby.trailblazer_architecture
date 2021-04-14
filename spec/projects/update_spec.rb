@@ -14,7 +14,6 @@ describe 'Clients' do
           }
         }
         response = @rpc['Projects::Create', input]
-        expect(response['id']).to be_a String
         expect(response['name']).to eq 'Project A'
 
         id = response['id']

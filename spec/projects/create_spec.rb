@@ -5,6 +5,7 @@ describe 'Clients' do
     context 'root client' do
       before do
         @rpc = RPCClient.new 'http://127.0.0.1:8081', token: 'root token'
+        @clients_rpc = RPCClient.new 'http://127.0.0.1:8080', token: 'root token'
       end
 
       it 'handles bad requests' do
@@ -21,7 +22,6 @@ describe 'Clients' do
           }
         }
         response = @rpc['Projects::Create', input]
-        expect(response['id']).to be_a String
         expect(response['name']).to eq 'Project A'
 
         id = response['id']
@@ -32,8 +32,8 @@ describe 'Clients' do
       end
 
       it 'creates projects with existing clients' do
-        id = @rpc['Clients::Create', name: 'Alice']['id']
-        expect(id).to be_a String
+        id = @clients_rpc['Clients::Create', name: 'Alice']['id']
+        expect(id).to be_a Integer
 
         input = {
           name: 'Project B',
@@ -41,7 +41,7 @@ describe 'Clients' do
           client_id: id,
         }
         response = @rpc['Projects::Create', input]
-        expect(response['id']).to be_a String
+        expect(response['id']).to be_a Integer
         expect(response['name']).to eq 'Project B'
 
         id = response['id']

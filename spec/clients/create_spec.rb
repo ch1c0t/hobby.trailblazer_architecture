@@ -41,7 +41,7 @@ describe 'Clients' do
       it do
         rpc = RPCClient.new 'http://127.0.0.1:8080', token: 'root token'
         response = rpc['Clients::Create', name: 'Bob']
-        expect(response['id']).to be_a String
+        expect(response['id']).to be_a Integer
         expect(response['name']).to eq 'Bob'
       end
     end

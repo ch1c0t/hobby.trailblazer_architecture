@@ -3,6 +3,7 @@ require 'msgpack'
 require 'securerandom'
 
 require_relative 'redis_dbs'
+require_relative 'redis_scripts'
 require_relative 'models/project'
 require_relative 'models/client'
 

@@ -7,7 +7,7 @@ describe 'Clients' do
 
       it do
         response = @rpc['Clients::Create', name: 'Bob']
-        expect(response['id']).to be_a String
+        expect(response['id']).to be_a Integer
         expect(response['name']).to eq 'Bob'
 
         id = response['id']

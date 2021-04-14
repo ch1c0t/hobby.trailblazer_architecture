@@ -1,13 +1,13 @@
 module Projects
   class Read < Act
     Input = Dry::Schema.JSON do
-      required(:id).filled(:string)
+      required(:id).filled(:integer)
     end
 
     step :output
 
     def output (ctx, **)
-      project = Project.find_by_id ctx[:input][:id]
+      project = RedisCall['Project.read', ctx[:input]]
       ctx[:output] = if project
                        project.to_h
                      else

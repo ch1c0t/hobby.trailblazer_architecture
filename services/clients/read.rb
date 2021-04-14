@@ -1,13 +1,15 @@
 module Clients
   class Read < Act
     Input = Dry::Schema.JSON do
-      required(:id).filled(:string)
+      required(:id).filled(:integer)
     end
 
     step :output
 
     def output (ctx, **)
-      client = Client.find_by_id ctx[:input][:id]
+      client = RedisCall['Client.read', ctx[:input]]
+      p "The client is:"
+      p client
       ctx[:output] = if client
                        client.to_h
                      else
